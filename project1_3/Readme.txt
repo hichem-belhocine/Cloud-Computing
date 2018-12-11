@@ -1,6 +1,6 @@
-Here is a short explanation about what we have done so far:
+Here is a short explanation about what i have done so far:
 
-1- we have created an Api Gateway to receive the requests send by the user. this part of configuration is placed in the cloud.
+1- i have created an Api Gateway to receive the requests send by the user. this part of configuration is placed in the cloud.
 this gateway should connect to the dynamo db and get the results of a specific watch and it looks like this(/watches/v3/get/{sku})
 
 2- in order to do we have first to create our database(project1) and fill it with watches data, which we get from the provided json file.
