@@ -1,0 +1,60 @@
+{
+	"openapi": "3.0.0",
+	"info": {
+		"title": "Watch info service",
+		"version": "1.0.0",
+		"description": "Watch API to manipulate watch info"
+	},
+  "servers": [
+    { "url": "http://35.190.19.170/image/v1/api" }
+  ],
+	"tags": [
+		{
+			"name": "Watches",
+			"description": "API for Watches Endpoints"
+		}
+	],
+	"paths": {
+		"/watch/{sku}": {
+			"get": {
+				"summary": "Return watch image",
+				"parameters": [
+					{
+						"name": "sku",
+						"in": "path",
+						"required": true,
+						"description": "SKU of the watch to return",
+						"schema": { "type": "string" }
+					}
+				],
+				"responses": {
+					"200": {
+						"description": "Successful operation",
+						"content": {
+							"image/png": {
+								"schema": {
+									"type": "string",
+									"format": "binray"
+								}
+							}
+						},
+						"headers": {
+							"Expires": {
+								"schema": {
+									"type": "string",
+									"format": "date-time"
+								}
+							},
+							"Cache-control": { "schema": { "type": "string"} },
+							"ETag": { "schema": { "type": "string" } }
+						}
+					},
+					"404": {
+						"description": "Watch is not found"
+					}
+
+				}
+			}
+		}
+	}
+}

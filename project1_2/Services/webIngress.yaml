@@ -1,0 +1,10 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: test
+  annotations:
+        nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  backend:
+    serviceName: test
+    servicePort: 6000

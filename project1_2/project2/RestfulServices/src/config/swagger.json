@@ -1,0 +1,272 @@
+{
+  "swagger": "2.0",
+  "securityDefinitions": {
+    "basicAuth": {
+      "type": "basic"
+    }
+  },
+  "security": [ { "basicAuth": [] } ],
+  "info": {
+    "title": "Watch info service",
+    "version": "1.0.0",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    },
+    "description": "Watch API to manipulate watch info"
+  },
+  "host": "35.190.19.170",
+  "basePath": "/watch/v2/api",
+  "tags": [
+    {
+      "name": "Watches",
+      "description": "API for Watches Endpoints"
+    }
+  ],
+  "schemes": [ "http", "https" ],
+  "consumes": [ "application/json" ],
+  "produces": [ "application/json" ],
+  "paths": {
+    "/watch": {
+      "post": {
+        "tags": [ "Watches" ],
+        "summary": "Add a new watch to the store",
+        "description": "Watch object that needs to be added to the store",
+        "parameters": [
+          {
+            "name": "watch",
+            "description": "Watch params to create new watch",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#definitions/Watch"
+            }
+          }
+        ],
+        "produces": [ "application/json" ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "400": {
+            "description": "Invalid input"
+          }
+        }
+      },
+      "get": {
+        "tags": [ "Watches" ],
+        "summary": "Return all the watches data",
+        "description": "Find all Watches from the database",
+        "produces": [ "application/json" ],
+        "responses": {
+          "200": {
+            "description": "All the watches",
+            "schema": {
+              "$ref": "#definitions/Watch"
+            }
+          }
+        }
+      }
+    },
+    "/watch/{sku}": {
+      "parameters": [
+        {
+          "name": "sku",
+          "in": "path",
+          "required": true,
+          "description": "SKU of the watch",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": [ "Watches" ],
+        "summary": "Return watch data",
+        "description": "Find one from the database",
+        "produces": [ "application/json" ],
+        "responses": {
+          "200": {
+            "description": "Watch has been found",
+            "schema": {
+              "$ref": "#definitions/Watch"
+            }
+          },
+          "404": {
+            "description": "Watch is not found"
+          }
+
+        }
+      },
+      "delete": {
+        "tags": [ "Watches" ],
+        "summary": "Deletes a watch",
+        "description": "Delete watch from the database",
+        "produces": [ "application/json" ],
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "404": {
+            "description": "Watch not found"
+          }
+        }
+      },
+      "put": {
+        "tags": [ "Watches" ],
+        "summary": "Updates a watch in the store with form data",
+        "description": "Update the existing Watch in database",
+        "parameters": [
+          {
+            "name": "watch",
+            "description": "SKU of the watch that needs to be updated",
+            "in": "body",
+            "schema": {
+              "$ref": "#definitions/Watch"
+            }
+          }
+        ],
+        "produces": [ "application/json" ],
+        "responses": {
+          "200": {
+            "description": "Song has Updated",
+            "schema": {
+              "$ref": "#definitions/Song"
+            }
+          }
+        }
+      }
+    },
+    "/watch/complete-sku/{sku}": {
+      "parameters": [
+        {
+          "name": "sku",
+          "in": "path",
+          "required": true,
+          "description": "partial sku to search",
+          "type": "string"
+        }
+      ],
+      "get": {
+        "tags": [ "Watches" ],
+        "summary": "Get list of SKUs matching a prefix",
+        "description": "SKU prefix to search (ideal for autocompletion)",
+        "produces": [ "application/json" ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#definitions/Watch"
+            }
+          },
+          "404": {
+            "description": "Watch is not found"
+          }
+        }
+      }
+    },
+    "/watch/find": {
+      "parameters": [
+        {
+          "name": "sku",
+          "in": "query",
+          "required": false,
+          "description": "partial sku to search",
+          "type": "string"
+        },
+        {
+          "name": "type",
+          "in": "query",
+          "required": false,
+          "description": "type of the watch",
+          "type": "string",
+          "enum": [ "watch", "chrono" ]
+        },
+        {
+          "name": "status",
+          "in": "query",
+          "required": false,
+          "description": "status of the watch",
+          "type": "string",
+          "enum": [ "old", "current", "outlet" ]
+        },
+        {
+          "name": "gender",
+          "in": "query",
+          "required": false,
+          "description": "gender of the watch's wearer",
+          "type": "string",
+          "enum": [ "man", "woman" ]
+        },
+        {
+          "name": "year",
+          "in": "query",
+          "required": false,
+          "description": "year of the watch production",
+          "type": "integer",
+          "format": "Int32"
+        }
+
+      ],
+      "get": {
+        "tags": [ "Watches" ],
+        "summary": "Finds watches by any criteria",
+        "description": "Finds watches by any criteria",
+        "produces": [ "application/json" ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "schema": {
+              "$ref": "#definitions/Watch"
+            }
+          },
+          "404": {
+            "description": "Watch is not found"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Watch": {
+      "required": [ "sku", "type", "status", "gender", "year" ],
+      "properties": {
+        "sku": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "enum": [ "watch", "chrono" ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [ "old", "current", "outlet" ]
+        },
+        "gender": {
+          "type": "string",
+          "enum": [ "man", "woman" ]
+        },
+        "year": {
+          "type": "integer",
+          "format": "Int32"
+        },
+        "dial_material": {
+          "type": "string"
+        },
+        "dial_color": {
+          "type": "string"
+        },
+        "case_material": {
+          "type": "string"
+        },
+        "case_form": {
+          "type": "string"
+        },
+        "bracelet_material": {
+          "type": "string"
+        },
+        "movement": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

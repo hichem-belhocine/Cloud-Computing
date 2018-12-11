@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+    name: watchappv1
+spec: 
+  ports:
+   - port: 4000
+     targetPort: 4000
+     protocol: TCP
+  selector:
+    name: watchappv1
+  type: NodePort

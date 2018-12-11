@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+    name: watchappv2
+spec: 
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  minReadySeconds: 5
+  template:
+    metadata: 
+     labels:
+      name: watchappv2
+    spec:
+     containers:
+     - name: watchappv2
+       image: maltahan/watchappv2:v1  
+       imagePullPolicy: IfNotPresent       
+       ports:
+       - containerPort: 5000

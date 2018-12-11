@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\api",
+    "\\src\\api\\resources",
+    "\\src\\api\\resources\\watch",
+    "\\src\\config"
+  ],
+  "SelectedNode": "\\src\\api\\resources\\watch\\watch.controller.js",
+  "PreviewInSolutionExplorer": false
+}

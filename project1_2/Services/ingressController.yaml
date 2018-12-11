@@ -1,0 +1,35 @@
+apiVersion: extensions/v1beta1
+kind: Ingress 
+metadata: 
+    name: watch-ingress 
+    annotations:
+        kubernetes.io/ingress.global-static-ip-name: "web-static-ip"
+        nginx.ingress.kubernetes.io/rewrite-target: /
+spec: 
+   rules: 
+   - http: 
+        paths: 
+            - path: /watch/v1/* 
+              backend: 
+                serviceName: watchappv1 
+                servicePort: 4000
+            - path: /watch/v2/* 
+              backend: 
+                serviceName: watchappv2 
+                servicePort: 5000    
+            - path: /image/v1/* 
+              backend: 
+                serviceName: watchimage 
+                servicePort: 3000    
+
+  
+   
+      
+       
+        
+          
+          
+       
+        
+          
+          

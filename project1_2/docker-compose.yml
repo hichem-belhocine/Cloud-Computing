@@ -1,0 +1,50 @@
+version: '2'
+
+services:
+    db:
+       image: mysql:5.7
+       environment:
+         MYSQL_ROOT_PASSWORD: secret
+       volumes:
+       - /home/db:/var/lib/mysql1
+       ports:
+       - "3306:3306"
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        depends_on:
+        - db
+        ports:
+        - "8080:80"
+    watchappv1:
+       # image: watchappv1
+        build: ./project1/RestfulServices
+        depends_on:
+        - db
+        restart: always
+        environment:
+         MYSQL_HOST: db
+         MYSQL_PORT: 3306
+         MYSQL_USER: root
+         MYSQL_DB: project1
+         MYSQL_PASS: secret
+        ports:
+        - "4000:4000" 
+    watchappv2:
+    # image: watchaappv2
+        build: ./project2/RestfulServices
+        depends_on:
+        - db
+        restart: always
+        environment:
+         MYSQL_HOST: db
+         MYSQL_PORT: 3306
+         MYSQL_USER: root
+         MYSQL_DB: project1
+         MYSQL_PASS: secret
+        ports:
+        - "5000:5000"
+    watchimage:
+         build: ./imageproject/RestfulServices
+         restart: always
+         ports:
+         - "3000:3000" 

@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\api",
+    "\\src\\api\\resources",
+    "\\src\\api\\resources\\watch",
+    "\\src\\config"
+  ],
+  "SelectedNode": "\\src\\config\\swagger.json",
+  "PreviewInSolutionExplorer": false
+}
