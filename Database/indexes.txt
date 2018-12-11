@@ -1,0 +1,4 @@
+CREATE INDEX status_index ON watches (status)  // it make sense to add index on the status column since it appears a lot on where and group by clauses.
+
+CREATE INDEX year_index
+ON watches (year DESC); // it make sense also to add index on the year column since it is a range column, and user would like to show the most resent watches

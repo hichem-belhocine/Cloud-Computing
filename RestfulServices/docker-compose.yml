@@ -1,0 +1,32 @@
+version: '2'
+
+services:
+    db:
+       image: mysql:5.7
+       environment:
+         MYSQL_ROOT_PASSWORD: secret
+       volumes:
+       - /home/db:/var/lib/mysql1
+       ports:
+       - "3306:3306"
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        depends_on:
+        - db
+        ports:
+        - "8080:80"
+    mynodeapp:
+       # image: project1
+        build: .
+        depends_on:
+        - db
+        restart: always
+        environment:
+         MYSQL_HOST: db
+         MYSQL_PORT: 3306
+         MYSQL_USER: root
+         MYSQL_DB: project1
+         MYSQL_PASS: secret
+        ports:
+        - "5000:3000"
+
